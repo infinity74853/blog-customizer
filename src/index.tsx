@@ -1,4 +1,3 @@
-// src/index.tsx
 import { createRoot } from 'react-dom/client';
 import { StrictMode, CSSProperties, useState } from 'react';
 import clsx from 'clsx';

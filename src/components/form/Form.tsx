@@ -6,5 +6,5 @@ type FormProps = {
 };
 
 export const Form = ({ children }: FormProps) => {
-	return <div className={styles.form}>{children}</div>;
+	return <div className={styles.formWrapper}>{children}</div>;
 };

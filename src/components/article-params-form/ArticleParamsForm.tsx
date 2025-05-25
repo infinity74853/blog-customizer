@@ -43,7 +43,8 @@ export const ArticleParamsForm = ({
 		setCurrentArticleState(tempStyles);
 	};
 
-	const handleReset = () => {
+	const handleReset = (e: React.FormEvent) => {
+		e.preventDefault();
 		setTempStyles(defaultArticleState);
 		setCurrentArticleState(defaultArticleState);
 	};
