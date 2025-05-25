@@ -1,0 +1,33 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+	height: 100%;
+	padding: 0;
+
+	.title {
+		margin: 0 0 15px;
+		font-weight: 700;
+		font-size: 18px;
+	}
+
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		h3 {
+			margin: 0;
+			font-weight: 500;
+			font-size: 14px;
+		}
+	}
+
+	.controls {
+		display: flex;
+		justify-content: flex-end;
+		gap: 10px;
+		margin-top: auto;
+		padding-top: 20px;
+	}
+}
