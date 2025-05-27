@@ -1,12 +1,11 @@
 import { useState, useRef } from 'react';
-import { useOutsideClickClose } from 'src/components/select/hooks/useOutsideClickClose';
-import { ArrowButton } from 'src/components/arrow-button';
-import { Button } from 'src/components/button';
-import { Form } from 'src/components/form/Form';
-import { Select } from 'src/components/select';
-import { RadioGroup } from 'src/components/radio-group';
-import { Separator } from 'src/components/separator';
-import { Text } from 'src/components/text';
+import { useOutsideClickClose } from 'src/ui/select/hooks/useOutsideClickClose';
+import { ArrowButton } from 'src/ui/arrow-button';
+import { Button } from 'src/ui/button';
+import { Select } from 'src/ui/select';
+import { RadioGroup } from 'src/ui/radio-group';
+import { Separator } from 'src/ui/separator';
+import { Text } from 'src/ui/text';
 import { clsx } from 'clsx';
 import {
 	ArticleStateType,
@@ -28,14 +27,14 @@ export const ArticleParamsForm = ({
 	currentArticleState,
 	setCurrentArticleState,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [tempStyles, setTempStyles] = useState(currentArticleState);
 	const formRef = useRef<HTMLDivElement>(null);
 
 	useOutsideClickClose({
-		isOpen,
+		isOpen: isSidebarOpen,
 		rootRef: formRef,
-		onChange: setIsOpen,
+		onChange: setIsSidebarOpen,
 	});
 
 	const handleApply = (e: React.FormEvent) => {
@@ -51,66 +50,70 @@ export const ArticleParamsForm = ({
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
+			<ArrowButton
+				isOpen={isSidebarOpen}
+				onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+			/>
 			<aside
 				ref={formRef}
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={clsx(styles.container, {
+					[styles.container_open]: isSidebarOpen,
+				})}>
 				<form
 					className={styles.form}
 					onSubmit={handleApply}
 					onReset={handleReset}>
-					<Form>
-						<Text size={31} weight={800}>
-							ЗАДАЙТЕ ПАРАМЕТРЫ
-						</Text>
-						<Select
-							selected={tempStyles.fontFamilyOption}
-							options={fontFamilyOptions}
-							onChange={(selected) =>
-								setTempStyles({ ...tempStyles, fontFamilyOption: selected })
-							}
-							title='Шрифт'
-						/>
+					<Text size={31} weight={800}>
+						ЗАДАЙТЕ ПАРАМЕТРЫ
+					</Text>
 
-						<RadioGroup
-							name='font-size'
-							options={fontSizeOptions}
-							selected={tempStyles.fontSizeOption}
-							onChange={(selected) =>
-								setTempStyles({ ...tempStyles, fontSizeOption: selected })
-							}
-							title='Размер шрифта'
-						/>
+					<Select
+						selected={tempStyles.fontFamilyOption}
+						options={fontFamilyOptions}
+						onChange={(selected) =>
+							setTempStyles({ ...tempStyles, fontFamilyOption: selected })
+						}
+						title='Шрифт'
+					/>
 
-						<Select
-							selected={tempStyles.fontColor}
-							options={fontColors}
-							onChange={(selected) =>
-								setTempStyles({ ...tempStyles, fontColor: selected })
-							}
-							title='Цвет шрифта'
-						/>
+					<RadioGroup
+						name='font-size'
+						options={fontSizeOptions}
+						selected={tempStyles.fontSizeOption}
+						onChange={(selected) =>
+							setTempStyles({ ...tempStyles, fontSizeOption: selected })
+						}
+						title='Размер шрифта'
+					/>
 
-						<Separator />
+					<Select
+						selected={tempStyles.fontColor}
+						options={fontColors}
+						onChange={(selected) =>
+							setTempStyles({ ...tempStyles, fontColor: selected })
+						}
+						title='Цвет шрифта'
+					/>
 
-						<Select
-							selected={tempStyles.backgroundColor}
-							options={backgroundColors}
-							onChange={(selected) =>
-								setTempStyles({ ...tempStyles, backgroundColor: selected })
-							}
-							title='Цвет фона'
-						/>
+					<Separator />
 
-						<Select
-							selected={tempStyles.contentWidth}
-							options={contentWidthArr}
-							onChange={(selected) =>
-								setTempStyles({ ...tempStyles, contentWidth: selected })
-							}
-							title='Ширина контента'
-						/>
-					</Form>
+					<Select
+						selected={tempStyles.backgroundColor}
+						options={backgroundColors}
+						onChange={(selected) =>
+							setTempStyles({ ...tempStyles, backgroundColor: selected })
+						}
+						title='Цвет фона'
+					/>
+
+					<Select
+						selected={tempStyles.contentWidth}
+						options={contentWidthArr}
+						onChange={(selected) =>
+							setTempStyles({ ...tempStyles, contentWidth: selected })
+						}
+						title='Ширина контента'
+					/>
 
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' htmlType='reset' type='clear' />
